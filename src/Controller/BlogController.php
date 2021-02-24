@@ -31,24 +31,32 @@ class BlogController extends AbstractController
                 'age' => 33,
                 ]);
             }
+
+            // Si on écrit la route blog/new après blog/{id} new sera considéré comme un id et il y aura une erreur. Dans ce cas là d'abord new sera recherché après blog/{id} et pas de confusion
+            #[Route('/blog/new', name: 'blog_create')]
+            public function create() {
+                return $this->render('blog/create.html.twig');
+            }
             
             #[Route('/blog/{id}', name: 'blog_show')]
             public function show(Article $article)
             {                
                 return $this->render('blog/show.html.twig', [
                     'article' => $article
-                ]);
-            }
-
-            // v2 de la fonction show
-            // public function show($id)
-            // {                
-            //     $repo = $this->getDoctrine()->getRepository(Article::class);
-            //     $article = $repo->find($id);
-
-            //     return $this->render('blog/show.html.twig', [
-            //         'article' => $article
-            //     ]);
-            // }
+                    ]);
+                }
+                
+                // v2 de la fonction show
+                // public function show($id)
+                // {                
+                    //     $repo = $this->getDoctrine()->getRepository(Article::class);
+                    //     $article = $repo->find($id);
+                    
+                    //     return $this->render('blog/show.html.twig', [
+                        //         'article' => $article
+                        //     ]);
+                        // }
+                        
+                        
         }
         
