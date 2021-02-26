@@ -8,6 +8,9 @@ use Doctrine\Persistence\ObjectManager;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
+use Symfony\Component\Form\Extension\Core\Type\SubmitType;
+use Symfony\Component\Form\Extension\Core\Type\TextareaType;
+use Symfony\Component\Form\Extension\Core\Type\TextType;
 use Symfony\Component\HttpFoundation\Request;
 
 class BlogController extends AbstractController
@@ -40,9 +43,31 @@ class BlogController extends AbstractController
                 $article = new Article();
 
                 $form = $this->createFormBuilder($article)
+                            // Avec cette version simple les options du form sont gérés dans twig
                             ->add('title')
                             ->add('content')
                             ->add('image')
+
+                            // version 2 des options du formulaire
+                            // ->add('title', TextType::class, [
+                            //     'attr' => [
+                            //         'placeholder' => "Titre de l'article"
+                            //     ]
+                            // ])
+                            // ->add('content', TextareaType::class, [
+                            //     'attr' => [
+                            //         'placeholder' => "Contenu de l'article"
+                            //     ]
+                            // ])
+                            // ->add('image', TextType::class, [
+                            //     'attr' => [
+                            //         'placeholder' => "Image de l'article"
+                            //     ]
+                            // ])
+                            // Le bouton est créé dans twig aussi. pas besoin de celui là
+                            // ->add('save', SubmitType::class, [
+                            //     'label' =>'Enregistrer'
+                            // ])
                             ->getForm();
 
                 return $this->render('blog/create.html.twig', [
