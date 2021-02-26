@@ -3,6 +3,7 @@
 namespace App\Controller;
 
 use App\Entity\Article;
+use App\Form\ArticleType;
 use App\Repository\ArticleRepository;
 use DateTime;
 use Doctrine\Persistence\ObjectManager;
@@ -51,33 +52,36 @@ class BlogController extends AbstractController
                 //         ->setContent("Contenu d'exemple");
 
                 // Créer formulaire
-                $form = $this->createFormBuilder($article)
-                            // Avec cette version simple les options du form sont gérés dans twig
-                            ->add('title')
-                            ->add('content')
-                            ->add('image')
+                // $form = $this->createFormBuilder($article)
+                //             // Avec cette version simple les options du form sont gérés dans twig
+                //             ->add('title')
+                //             ->add('content')
+                //             ->add('image')
 
-                            // version 2 des options du formulaire
-                            // ->add('title', TextType::class, [
-                            //     'attr' => [
-                            //         'placeholder' => "Titre de l'article"
-                            //     ]
-                            // ])
-                            // ->add('content', TextareaType::class, [
-                            //     'attr' => [
-                            //         'placeholder' => "Contenu de l'article"
-                            //     ]
-                            // ])
-                            // ->add('image', TextType::class, [
-                            //     'attr' => [
-                            //         'placeholder' => "Image de l'article"
-                            //     ]
-                            // ])
-                            // Le bouton est créé dans twig aussi. pas besoin de celui là
-                            // ->add('save', SubmitType::class, [
-                            //     'label' =>'Enregistrer'
-                            // ])
-                            ->getForm();
+                //             // version 2 des options du formulaire
+                //             // ->add('title', TextType::class, [
+                //             //     'attr' => [
+                //             //         'placeholder' => "Titre de l'article"
+                //             //     ]
+                //             // ])
+                //             // ->add('content', TextareaType::class, [
+                //             //     'attr' => [
+                //             //         'placeholder' => "Contenu de l'article"
+                //             //     ]
+                //             // ])
+                //             // ->add('image', TextType::class, [
+                //             //     'attr' => [
+                //             //         'placeholder' => "Image de l'article"
+                //             //     ]
+                //             // ])
+                //             // Le bouton est créé dans twig aussi. pas besoin de celui là
+                //             // ->add('save', SubmitType::class, [
+                //             //     'label' =>'Enregistrer'
+                //             // ])
+                //             ->getForm();
+
+                $form = $this->createForm(ArticleType::class, $article);
+
                 // Analyser la requête
                 $form->handleRequest($request);
                 // Control des données
