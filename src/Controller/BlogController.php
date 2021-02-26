@@ -4,6 +4,7 @@ namespace App\Controller;
 
 use App\Entity\Article;
 use App\Repository\ArticleRepository;
+use DateTime;
 use Doctrine\Persistence\ObjectManager;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
@@ -39,9 +40,17 @@ class BlogController extends AbstractController
 
             // Si on écrit la route blog/new après blog/{id} new sera considéré comme un id et il y aura une erreur. Dans ce cas là d'abord new sera recherché après blog/{id} et pas de confusion
             #[Route('/blog/new', name: 'blog_create')]
-            public function create(Request $request, ObjectManager $manager) {
-                $article = new Article();
+            #[Route('/blog/{id}/edit', name: 'blog_edit')]
+            public function form(Article $article = null, Request $request, ObjectManager $manager) {
+                // $article = new Article();
 
+                if (!$article) {
+                    $article = new Article();
+                }
+                // $article->setTitle("Titre d'exemple")
+                //         ->setContent("Contenu d'exemple");
+
+                // Créer formulaire
                 $form = $this->createFormBuilder($article)
                             // Avec cette version simple les options du form sont gérés dans twig
                             ->add('title')
@@ -69,9 +78,23 @@ class BlogController extends AbstractController
                             //     'label' =>'Enregistrer'
                             // ])
                             ->getForm();
+                // Analyser la requête
+                $form->handleRequest($request);
+                // Control des données
+                if ($form->isSubmitted() && $form->isValid()) {
+                    if (!$article->getId()) {
+                        $article->setCreatedAt(new \DateTime());
+                    }
+
+                    $manager->persist($article);
+                    $manager->flush();
+
+                    return $this->redirectToRoute('blog_show', ['id' => $article->getId()]);
+                }
 
                 return $this->render('blog/create.html.twig', [
-                    'formArticle' => $form->createView()//formArticle sera appelé dans Twig
+                    'formArticle' => $form->createView(),//formArticle sera appelé dans Twig
+                    'editMode' => $article->getId() !== null
                 ]);
             }
             
