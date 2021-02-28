@@ -11,3 +11,10 @@ composer install
 ## un project
 
 symfony server:start
+
+## création et migration BDD
+php bin/console make:migration
+sonra php bin/console doctrine:migration:migrate
+
+## installation Faker
+composer require fzaninotto/faker
