@@ -29,7 +29,7 @@ class ArticleFixtures extends Fixture
                 $article = new Article();
 
                 // On ne peut pas utiliser $faker->paragraphs qui nous donne un tableau car setContent demande un string. Nous avons sorti la method faker et stocké la valeur dans une variable                
-                $content = '<p>' . join($faker->paragraphs(5), '</p><p>') . '</p>';
+                $content = '<p>' . join('</p><p>', $faker->paragraphs(5)) . '</p>';
 
                 $article->setTitle($faker->sentence())
                         ->setContent($content)
@@ -43,7 +43,7 @@ class ArticleFixtures extends Fixture
                 for ($k=0; $k <= mt_rand(4, 10); $k++) { 
                     $comment = new Comment;
 
-                    $content = '<p>' . join($faker->paragraphs(2), '</p><p>') . '</p>';
+                    $content = '<p>' . join( '</p><p>', $faker->paragraphs(2)) . '</p>';
 
                     // La date de commentaire doit être après la date de création
                     // $now = new \DateTime();
