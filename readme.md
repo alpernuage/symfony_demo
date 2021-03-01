@@ -6,7 +6,7 @@ git clone https://github.com/alpernuage/symfony_demo.git
 
 ## install project
 
-composer install
+`composer install`
 
 ## un project
 
