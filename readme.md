@@ -10,16 +10,16 @@ git clone https://github.com/alpernuage/symfony_demo.git
 
 ## un project
 
-symfony server:start
+`symfony server:start`
 
 ## création et migration BDD
-php bin/console make:migration
-sonra php bin/console doctrine:migration:migrate
+`php bin/console make:migration`
+`php bin/console doctrine:migration:migrate`
 
 ## installation Faker
-composer require fzaninotto/faker  
+`composer require fzaninotto/faker`
 Faire la migration  
-php bin/console doctrine:fixtures:load  
+`php bin/console doctrine:fixtures:load`
 Si les erreurs suivants s'affichent (v1.5), modifier les lignes suivants dans vendor\fzaninotto\faker\src\Faker\Provider\Lorem.php
 * Erreur "join(): Argument #2 ($array) must be of type ?array, string given"  
   Ligne 95: return join(' ', $words) . '.';
@@ -27,4 +27,4 @@ Si les erreurs suivants s'affichent (v1.5), modifier les lignes suivants dans ve
   Ligne 134: return join(' ',static::sentences($nbSentences));
 
 Ensuite encore:  
-php bin/console doctrine:fixtures:load
+`php bin/console doctrine:fixtures:load`
