@@ -13,7 +13,7 @@ git clone https://github.com/alpernuage/symfony_demo.git
 `symfony server:start`
 
 ## création et migration BDD
-`php bin/console make:migration`
+`php bin/console make:migration`  
 `php bin/console doctrine:migration:migrate`
 
 ## installation Faker
