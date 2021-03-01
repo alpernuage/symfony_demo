@@ -2,7 +2,7 @@
 
 ## get project
 
-git clone https://github.com/alpernuage/symfony_demo.git
+`git clone https://github.com/alpernuage/symfony_demo.git`
 
 ## install project
 
